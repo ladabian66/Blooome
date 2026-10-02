@@ -19,6 +19,7 @@ const WORKS = [
     en: "GENERATIVE STUDY",
     tags: "p5.js / TouchDesigner",
     year: "2026",
+    img: "works/work-1.jpg",
   },
   {
     index: "02",
@@ -26,6 +27,7 @@ const WORKS = [
     en: "VISUAL IDENTITY",
     tags: "海报 / 字体排印",
     year: "2026",
+    img: "",
   },
   {
     index: "03",
@@ -33,6 +35,7 @@ const WORKS = [
     en: "INTERACTIVE INSTALLATION",
     tags: "传感器 / 空间",
     year: "2025",
+    img: "",
   },
   {
     index: "04",
@@ -40,11 +43,36 @@ const WORKS = [
     en: "THIS VERY SITE",
     tags: "React / Skiper UI",
     year: "2026",
+    img: "",
   },
 ];
 
-/* 纯 CSS 画的作品预览图：单色构成 + 描边大序号，悬停时跟随光标 */
+/* 纯 CSS 画的作品预览图：单色构成 + 描边大序号，悬停时跟随光标；
+   作品填了 img 时改为显示真实图片，保留大序号和文字角标 */
 function WorkPreview({ work }: { work: (typeof WORKS)[number] }) {
+  if (work.img) {
+    return (
+      <div className="relative h-full w-full overflow-hidden bg-neutral-950">
+        <img
+          src={work.img}
+          alt={work.title}
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+        <span className="font-display absolute -bottom-[6%] -left-[2%] text-[26rem] leading-none font-black tracking-tighter text-transparent select-none [-webkit-text-stroke:2px_rgba(255,255,255,0.75)]">
+          {work.index}
+        </span>
+        <div className="absolute top-6 left-6 flex flex-col gap-1 [text-shadow:0_1px_12px_rgba(0,0,0,0.8)]">
+          <span className="text-xs tracking-[0.3em] text-white/70 uppercase">
+            {work.en}
+          </span>
+          <span className="text-2xl font-bold text-white">{work.title}</span>
+        </div>
+        <div className="absolute right-6 bottom-6 text-xs tracking-[0.2em] text-white/70 [text-shadow:0_1px_12px_rgba(0,0,0,0.8)]">
+          {work.tags} — {work.year}
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="relative h-full w-full overflow-hidden bg-neutral-950">
       {/* 构成元素：同心圆 + 斜切色块，靠构图区分而非颜色 */}
